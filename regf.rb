@@ -16,8 +16,8 @@ class RegfBlock
 		@root_key_offset = 0x20
 		@hive_name = hive[0x30-1, 64].to_s.gsub("\x00", "")
 
-		puts "Timestamp: #{@timestamp.inspect}"
-		puts "Root key offset: #{@root_key_offset.inspect}"
+		#puts "Timestamp: #{@timestamp.inspect}"
+		#puts "Root key offset: #{@root_key_offset.inspect}"
 		puts "Hive name: #{@hive_name.inspect}"		
 	end
 end

@@ -1,9 +1,10 @@
-def ValueKey
+class ValueKey
 
 	attr_accessor :name_length, :length_of_data, :data_offset
 	attr_accessor :value_type, :name, :value
 
 	def initialize(hive, offset)
+		offset = offset + 4
 
 		vk_header = hive[offset, 2]
 		
@@ -25,6 +26,18 @@ def ValueKey
 			@name = hive[offset+0x0014, @name_length].to_s
 		end
 
-		
+		@value = ValueKeyData.new(hive, @data_offset, @length_of_data, @value_type)
+
+		puts @value.data
+	end
+end
+
+class ValueKeyData
+
+	attr_accessor :data	
+
+	def initialize(hive, offset, length, datatype)
+		offset = offset + 4
+		@data = hive[offset + 0x1000, length]
 	end
 end

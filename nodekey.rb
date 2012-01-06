@@ -1,4 +1,5 @@
 require_relative "lfkey"
+require_relative "valuelist"
 
 class NodeKey
 
@@ -12,11 +13,10 @@ class NodeKey
 		offset = offset + 0x04		
 
 		nk_header = hive[offset, 2]
-
 		nk_type = hive[offset+0x02, 2]
 
-		puts nk_header
-		puts nk_type		
+		#puts nk_header
+		#puts nk_type		
 
 		if nk_header !~ /nk/ 
 			puts "nodekey broken"
@@ -41,27 +41,27 @@ class NodeKey
 		 	unix_time = windows_time/10000000-11644473600
 		 	ruby_time = Time.at(unix_time)
 		 	
-		  	puts "Last write date: #{ruby_time}"
+		  	#puts "Last write date: #{ruby_time}"
 		  	unix_time2 = ruby_time.to_i
-		  	puts "Unix time: #{unix_time}"
+		  	#puts "Unix time: #{unix_time}"
 		rescue Exception => e
 			puts "error: #{e.message}"
 		end
 
-		puts "NT Timestamp: #{@timestamp}"
+		#puts "NT Timestamp: #{@timestamp}"
 
-		puts "Subkeys count: #{@subkeys_count}"
-		puts "LF Record Offset: #{@lf_record_offset}"
-		puts "Value count: #{@value_count}"
-		puts "Offset to value list: #{@value_list_offset}"
-		puts "SK offset: #{@security_key_offset}"
-		puts "Class name offset: #{@class_name_offset}"
-		puts "Name length: #{@name_length}"
-		puts "Class name length: #{@class_name_length}"
-		puts "Name: #{@name}"
+		#puts "Subkeys count: #{@subkeys_count}"
+		#puts "LF Record Offset: #{@lf_record_offset}"
+		#puts "Value count: #{@value_count}"
+		#puts "Offset to value list: #{@value_list_offset}"
+		#puts "SK offset: #{@security_key_offset}"
+		#puts "Class name offset: #{@class_name_offset}"
+		#puts "Name length: #{@name_length}"
+		#puts "Class name length: #{@class_name_length}"
+		#puts "Name: #{@name}"
 
 		@lf_record = LFBlock.new(hive, @lf_record_offset + 0x1000) if @lf_record_offset != -1	
-	
+		@value_list = ValueList.new(hive, @value_list_offset + 0x1000, @value_count) if @value_list_offset != -1	
 	end
 
 end

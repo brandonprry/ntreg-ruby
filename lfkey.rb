@@ -1,3 +1,5 @@
+require_relative "nodekey"
+
 class LFBlock
 
 	attr_accessor :number_of_keys, :hash_records, :children
@@ -18,7 +20,7 @@ class LFBlock
 		@hash_records = []
 		@children = []
 
-		puts "Number of key hashes in LF block: #{@number_of_keys}"
+		#puts "Number of key hashes in LF block: #{@number_of_keys}"
 			
 		hash_offset = offset + 0x04
 
