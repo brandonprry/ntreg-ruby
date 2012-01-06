@@ -1,3 +1,5 @@
+require_relative "lfkey"
+
 class NodeKey
 
 	attr_accessor :timestamp, :parent_offset, :subkeys_count, :lf_record_offset
@@ -56,7 +58,9 @@ class NodeKey
 		puts "Name length: #{@name_length}"
 		puts "Class name length: #{@class_name_length}"
 		puts "Name: #{@name}"
-		
+
+		@lf_record = LFBlock.new(hive, @lf_record_offset + 0x1000)	
+	
 	end
 
 end
