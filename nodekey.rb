@@ -6,7 +6,7 @@ class NodeKey
 	attr_accessor :timestamp, :parent_offset, :subkeys_count, :lf_record_offset
 	attr_accessor :value_count, :value_list_offset, :security_key_offset
 	attr_accessor :class_name_offset, :name_length, :class_name_length
-	attr_accessor :name, :lf_record, :value_list
+	attr_accessor :name, :lf_record, :value_list, :class_name_data
 
 	def initialize(hive, offset)	
 
@@ -60,8 +60,12 @@ class NodeKey
 		#puts "Class name length: #{@class_name_length}"
 		#puts "Name: #{@name}"
 
+		@lf_record = nil
+		@value_list = nil
+
 		@lf_record = LFBlock.new(hive, @lf_record_offset + 0x1000) if @lf_record_offset != -1	
-		@value_list = ValueList.new(hive, @value_list_offset + 0x1000, @value_count) if @value_list_offset != -1	
+		@value_list = ValueList.new(hive, @value_list_offset + 0x1000, @value_count) if @value_list_offset != -1
+		@class_name_data = hive[@class_name_offset + 0x1000, @class_name_length]
 	end
 
 end
