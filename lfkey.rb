@@ -1,21 +1,22 @@
 class LFBlock
 
-	attr_accessor :number_of_keys, :hash_records	
+	attr_accessor :number_of_keys, :hash_records, :children
 
 	def initialize(hive_blob, offset)
 		offset = offset + 4
 		lf_header = hive_blob[offset, 2]
 
-		puts lf_header.inspect
+		#puts lf_header.inspect
 		
 		if lf_header !~ /lf/ && lf_header !~ /lh/
-			puts "lf block broken"
+			#puts "lf block broken"
 			return
 		end
 
 		@number_of_keys = hive_blob[offset + 0x02, 2].unpack('C').first
 
 		@hash_records = []
+		@children = []
 
 		puts "Number of key hashes in LF block: #{@number_of_keys}"
 			
@@ -27,12 +28,12 @@ class LFBlock
 
 			@hash_records << hash
 
-			puts "\tChild offset: #{hash.nodekey_offset}"
-			puts "\tChild verification: #{hash.nodekey_name_verification}"
+			#puts "\tChild offset: #{hash.nodekey_offset}"
+			#puts "\tChild verification: #{hash.nodekey_name_verification}"
 
 			hash_offset = hash_offset + 0x08
 
-			child = NodeKey.new(hive_blob, hash.nodekey_offset + 0x1000)
+			children << NodeKey.new(hive_blob, hash.nodekey_offset + 0x1000)
 		end
 	end
 end

@@ -35,6 +35,7 @@ class NodeKey
 		@class_name_length = hive[offset+0x4a, 2].unpack('c').first
 		@name = hive[offset+0x4c, @name_length].to_s
 
+		#https://gist.github.com/189111
 		begin
 		 	windows_time = (@timestamp) 
 		 	unix_time = windows_time/10000000-11644473600
@@ -59,7 +60,7 @@ class NodeKey
 		puts "Class name length: #{@class_name_length}"
 		puts "Name: #{@name}"
 
-		@lf_record = LFBlock.new(hive, @lf_record_offset + 0x1000)	
+		@lf_record = LFBlock.new(hive, @lf_record_offset + 0x1000) if @lf_record_offset != -1	
 	
 	end
 
