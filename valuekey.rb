@@ -26,9 +26,7 @@ class ValueKey
 			@name = hive[offset+0x0014, @name_length].to_s
 		end
 
-		@value = ValueKeyData.new(hive, @data_offset, @length_of_data, @value_type)
-
-		puts @value.data
+		@value = ValueKeyData.new(hive, @data_offset, @length_of_data, @value_type, offset)
 	end
 end
 
@@ -36,8 +34,13 @@ class ValueKeyData
 
 	attr_accessor :data	
 
-	def initialize(hive, offset, length, datatype)
+	def initialize(hive, offset, length, datatypei, parent_offset)
 		offset = offset + 4
-		@data = hive[offset + 0x1000, length]
+
+		if length > 5
+			@data = hive[parent_offset + 0x08, length]
+		else 
+			@data = hive[offset + 0x1000, length]
+		end
 	end
 end

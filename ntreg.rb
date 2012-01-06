@@ -1,7 +1,7 @@
 require_relative "hive"
 
-hive = Hive.new(ARGV[0])
+hive = Hive.new(ARGV[1])
 
-default_control_set = hive.relative_query("\\Select\\Default")
+hive.relative_query(ARGV[0])
 
 

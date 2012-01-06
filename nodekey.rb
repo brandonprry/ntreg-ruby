@@ -6,7 +6,7 @@ class NodeKey
 	attr_accessor :timestamp, :parent_offset, :subkeys_count, :lf_record_offset
 	attr_accessor :value_count, :value_list_offset, :security_key_offset
 	attr_accessor :class_name_offset, :name_length, :class_name_length
-	attr_accessor :name
+	attr_accessor :name, :lf_record, :value_list
 
 	def initialize(hive, offset)	
 
