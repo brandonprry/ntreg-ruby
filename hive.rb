@@ -35,7 +35,7 @@ class Hive
                                         puts "The values and data of \\#{@root_key.name}\\#{full_name} are: "
 
                                         @current_child.value_list.values.each do |value|
-                                                p value.name
+                                                p value.name + ": " + value.value.data
                                         end
                                 end
 
@@ -60,7 +60,7 @@ class Hive
 						puts "The values and data of \\#{@root_key.name}\\#{full_name} are: "
 							
 						@current_child.value_list.values.each do |value|
-							p value.name 
+							p value.name + ": " + (value.value.data ? value.value.data : "")
 						end
 					end
 				else

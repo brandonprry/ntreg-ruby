@@ -34,11 +34,13 @@ class ValueKeyData
 
 	attr_accessor :data	
 
-	def initialize(hive, offset, length, datatypei, parent_offset)
+	def initialize(hive, offset, length, datatype, parent_offset)
 		offset = offset + 4
 
-		if length > 5
-			@data = hive[parent_offset + 0x08, length]
+		#If the data-size is lower than 5, the data-offset value is used to store
+		#the data itself!
+		if length < 5
+			@data = hive[parent_offset + 0x08, 4]
 		else 
 			@data = hive[offset + 0x1000, length]
 		end
