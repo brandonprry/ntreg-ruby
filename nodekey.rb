@@ -16,8 +16,8 @@ class NodeKey
 		puts nk_header
 		puts nk_type		
 
-		if nk_header !~ /nk/ || nk_type !~ /,/
-			puts "root key broken"
+		if nk_header !~ /nk/ 
+			puts "nodekey broken"
 			return
 		end
 	
@@ -32,6 +32,31 @@ class NodeKey
 		@name_length = hive[offset+0x48, 2].unpack('c').first
 		@class_name_length = hive[offset+0x4a, 2].unpack('c').first
 		@name = hive[offset+0x4c, @name_length].to_s
+
+		begin
+		 	windows_time = (@timestamp) 
+		 	unix_time = windows_time/10000000-11644473600
+		 	ruby_time = Time.at(unix_time)
+		 	
+		  	puts "Last write date: #{ruby_time}"
+		  	unix_time2 = ruby_time.to_i
+		  	puts "Unix time: #{unix_time}"
+		rescue Exception => e
+			puts "error: #{e.message}"
+		end
+
+		puts "NT Timestamp: #{@timestamp}"
+
+		puts "Subkeys count: #{@subkeys_count}"
+		puts "LF Record Offset: #{@lf_record_offset}"
+		puts "Value count: #{@value_count}"
+		puts "Offset to value list: #{@value_list_offset}"
+		puts "SK offset: #{@security_key_offset}"
+		puts "Class name offset: #{@class_name_offset}"
+		puts "Name length: #{@name_length}"
+		puts "Class name length: #{@class_name_length}"
+		puts "Name: #{@name}"
+		
 	end
 
 end

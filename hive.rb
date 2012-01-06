@@ -9,7 +9,7 @@ class Hive
 		hive_blob = open(hivepath, "rb") { |io| io.read }	
 		hive_regf = RegfBlock.new(hive_blob)
 	
-		@root_key = NodeKey.new(hive_blob, 4128)
+		@root_key = NodeKey.new(hive_blob, 0x1000 + hive_regf.root_key_offset)
 
 		puts "Found root key: " + @root_key.name if @root_key
 	end
@@ -18,9 +18,8 @@ class Hive
 
 		paths = path.split("\\")
 		
-		@root_key.children.each do |child|
-
-		
+		1.upto(@root_key.subkeys_count) do |k|
+			
 		end
 	end
 end
