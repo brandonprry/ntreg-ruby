@@ -8,8 +8,9 @@ class NodeKey
 	def initialize(hive, offset)	
 
 		offset = offset + 0x04		
-	
+
 		nk_header = hive[offset, 2]
+
 		nk_type = hive[offset+0x02, 2]
 
 		puts nk_header
