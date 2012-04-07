@@ -1,0 +1,2 @@
+Please see the Rex::Registry code in metasploit-framework, and the reg.rb tool in the metasploit-framework for the latest and greatest code.
+don't expect this to be maintained. If you would like to use this as a gem, gem install librex and use Rex::Registry :)
